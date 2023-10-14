@@ -1,15 +1,6 @@
 import matplotlib.pyplot as plt
 import math
 
-
-# teste = [9,4,5,6,3,2,1]
-# testx = [0,1,2,3,4,5,6]
-
-# plt.stem(testx, teste,markerfmt='ro', basefmt=' ', linefmt='-r', label='Amostragem fs=200 Hz')
-
-# plt.tight_layout()
-# plt.show()
-
 def calculateSignal_form_A_power_n(a_factor, start, end):
     x_indiceArray = []
     y_indiceArray = []
@@ -37,14 +28,8 @@ def invert_a_signal(signalToInvert, start, end):
         end -= 1;
     return signal
     
-
-
-resultOfsignalFormula = calculateSignal_form_A_power_n(0.8, 0,10);
-#print(resultOfsignalFormula[1]);
-y_indiceArray_circularInvertion = invert_a_signal(resultOfsignalFormula[1], 1, len(resultOfsignalFormula[1])-1 )
-plotSignal(resultOfsignalFormula[0], y_indiceArray_circularInvertion)
-
-
-
 # resultOfsignalFormula = calculateSignal_form_A_power_n(0.8, 0,10);
-# plotSignal(resultOfsignalFormula[0], resultOfsignalFormula[1]);
+# y_indiceArray_circularInvertion = invert_a_signal(resultOfsignalFormula[1], 1, len(resultOfsignalFormula[1])-1 )
+# plotSignal(resultOfsignalFormula[0], y_indiceArray_circularInvertion)
+
+
