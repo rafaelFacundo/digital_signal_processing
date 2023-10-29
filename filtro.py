@@ -6,7 +6,6 @@ shifIndX = [0,1,2];
 xSignal = [0,1,2,3,4,54,56,5,32,10,7]
 
 
-
 def applyFilter(Y_coeficients, X_coeficients, shiftIndicesInY, shiftIndicesInX, X_signal, numberOfSamples):
     result = [];
     actualResult = 0
