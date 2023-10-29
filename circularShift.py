@@ -12,7 +12,7 @@ def circularShift(signalToShift, numberOfShift):
     newInitialIndice += numberOfShift;
     newSignal = signal[newInitialIndice:newInitialIndice+len(signalToShift)]
     
-    print(newSignal);   
+
     return newSignal;
 
 

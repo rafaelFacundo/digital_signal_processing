@@ -18,4 +18,15 @@ def circularConvolution(signalOne, signalTwo):
     return result;
 
 
-print(circularConvolution([1,2,3,4], [5,6,7,8]))
+def callCircularConvolution(signalOne, signalTwo):
+    lenghtDifference = len(signalOne) - len(signalTwo)
+    if lenghtDifference > 0:
+        arrayOfZeros = [0] * lenghtDifference;
+        signalTwo = signalTwo + arrayOfZeros;
+    elif lenghtDifference < 0:
+        arrayOfZeros = [0] * lenghtDifference;
+        signalOne = signalOne + arrayOfZeros;
+    return circularConvolution(signalOne, signalTwo);
+
+
+print(callCircularConvolution([1,2,3,4,5,6,7], [7,8,9,7]))
