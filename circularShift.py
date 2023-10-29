@@ -17,5 +17,5 @@ def circularShift(signalToShift, numberOfShift):
 
 
 
-signalShifted = circularShift(resultSignal[1], -3);
-circularInversion.plotSignal(resultSignal[0], signalShifted);
+#signalShifted = circularShift(resultSignal[1], -3);
+#circularInversion.plotSignal(resultSignal[0], signalShifted);
