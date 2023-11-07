@@ -4,8 +4,12 @@ from scipy import signal
 
 def ideal_lowPass_filter(Wc, M):
     h = [];
+    result = 0;
     for n in range(-M, M):
-        result = Wc/np.pi * np.sinc(Wc * (n)/np.pi)
+        if n == 0:
+            result = Wc/np.pi
+        else:
+            result = 1/(np.pi * n) * (np.sin(Wc*n))
         h.append(result)
     return h
 
@@ -45,8 +49,12 @@ def bandReject_filter(Wc1, Wc2, M):
 #h = ideal_lowPass_filter(np.pi/4, 20);
 #h = ideal_highPass_filter(np.pi/8, 20);
 #h = bandPass_filter(np.pi/16, np.pi/2, 20);
-h = bandReject_filter(np.pi/16, np.pi/2, 20);
+#h = bandReject_filter(np.pi/16, np.pi/2, 20);
 
+
+def rectangularWindow():
+    h = []
+    return h
 
 
 
