@@ -7,5 +7,7 @@ def calculateFrequencyResponse(A_coeficients, B_coeficients):
 
 w, h = calculateFrequencyResponse([1,-0.9],[1])
 
-plt.plot(w, 20 * np.log10(abs(h)));
+angles = np.unwrap(np.angle(h))
+
+plt.plot(w, angles);
 plt.show()
