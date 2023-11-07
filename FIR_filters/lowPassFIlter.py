@@ -9,7 +9,45 @@ def ideal_lowPass_filter(Wc, M):
         h.append(result)
     return h
 
-h = ideal_lowPass_filter(np.pi/4, 20);
+def ideal_highPass_filter(Wc, M):
+    h = [];
+    result = 0;
+    for n in range(-M, M):
+        if n == 0:
+            result = 1 - Wc/np.pi;
+        else:
+            result = (-1/np.pi * n) * np.sin(Wc * n);
+        h.append(result);
+    return h;
+
+def bandPass_filter(Wc1, Wc2, M):
+    h = [];
+    result = 0;
+    for n in range(-M, M):
+        if n == 0:
+            result = (Wc2 - Wc1)/np.pi;
+        else:
+            result = 1/(np.pi * n) * (np.sin(Wc2*n) - np.sin(Wc1*n))
+        h.append(result)
+    return h;
+
+def bandReject_filter(Wc1, Wc2, M):
+    h = [];
+    result = 0;
+    for n in range(-M, M):
+        if n == 0:
+            result = 1 - (Wc2 - Wc1)/np.pi;
+        else:
+            result = 1/(np.pi * n) * (np.sin(Wc1*n)-np.sin(Wc2*n))
+        h.append(result)
+    return h;
+
+#h = ideal_lowPass_filter(np.pi/4, 20);
+#h = ideal_highPass_filter(np.pi/8, 20);
+#h = bandPass_filter(np.pi/16, np.pi/2, 20);
+h = bandReject_filter(np.pi/16, np.pi/2, 20);
+
+
 
 
 def takeFreqz(h, N):
