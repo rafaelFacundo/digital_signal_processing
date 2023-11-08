@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
+import math
+
 
 def ideal_lowPass_filter(Wc, M):
     h = [];
@@ -46,33 +48,46 @@ def bandReject_filter(Wc1, Wc2, M):
         h.append(result)
     return h;
 
-#h = ideal_lowPass_filter(np.pi/4, 20);
+h = ideal_lowPass_filter(np.pi/4, 13);
 #h = ideal_highPass_filter(np.pi/8, 20);
 #h = bandPass_filter(np.pi/16, np.pi/2, 20);
 #h = bandReject_filter(np.pi/16, np.pi/2, 20);
 
 
-def rectangularWindow():
-    h = []
-    return h
+def rectangularWindow(M):
+    w = []
+    for x in range(-M, M):
+        w.append(1)
+    return w
 
+def hammingWindow(alfa, M):
+    w = []
+    for n in range(-M, M):
+        w.append(alfa + (1-alfa) * np.cos((2 * np.pi * n)/M))
+    return w;
 
+def hammingWindow(M):
+    w = []
+    for n in range(-M, M):
+        w.append(0.42 + 0.5*np.cos(2* np.pi * n/M) + 0.08 * np.cos(4 * np.pin /M ))
+    return w;
 
 def takeFreqz(h, N):
-    w, Hh = signal.freqz(h, 1, whole=True, worN=N)
+    w, Hh = signal.freqz(h, 1)
     return w, Hh
 
 w, Hh = takeFreqz(h, 512);
+
 
 fig,axs = plt.subplots(3,1)
 fig.set_size_inches((8,8))
 plt.subplots_adjust(hspace=0.3)
 
-M=20
+M=13
 wc = np.pi/4
 n = np.arange(-M,M)
 ax=axs[0]
-ax.stem(n+M,h,basefmt='b-')
+ax.stem(n,h,basefmt='b-')
 ax.set_xlabel("n",fontsize=16)
 ax.set_ylabel("amplitude",fontsize=16)
 
