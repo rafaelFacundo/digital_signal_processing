@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 from scipy import signal
 import math
 
+def multiplySignals(signalOne, signalTwo):
+    result = [];
+    for n in range(len(signalOne)):
+        result.append(signalOne[n] * signalTwo[n])
+    return result;
 
 def ideal_lowPass_filter(Wc, M):
     h = [];
@@ -49,24 +54,34 @@ def bandReject_filter(Wc1, Wc2, M):
     return h;
 
 h = ideal_lowPass_filter(np.pi/4, 13);
-#h = ideal_highPass_filter(np.pi/8, 20);
-#h = bandPass_filter(np.pi/16, np.pi/2, 20);
-#h = bandReject_filter(np.pi/16, np.pi/2, 20);
+#h = ideal_highPass_filter(np.pi/8, 13);
+#h = bandPass_filter(np.pi/16, np.pi/2, 13);
+#h = bandReject_filter(np.pi/16, np.pi/2, 13);
+
 
 
 def rectangularWindow(M):
     w = []
-    for x in range(-M, M):
-        w.append(1)
+    limit = 0;
+    if M % 2 == 0:
+        limit = math.floor(M/2)
+        for n in range(-limit, limit):
+            w.append(1);
+        w = [0]*limit + w + [0]*limit;
+    else:
+        limit = math.floor((M-1)/2)
+        for n in range(-limit, (limit+1)):
+            w.append(1)
+        w = [0]*limit + w + [0]*(limit+1)
     return w
 
-def hammingWindow(alfa, M):
+def hammingWindow(Alfa, M):
     w = []
     for n in range(-M, M):
-        w.append(alfa + (1-alfa) * np.cos((2 * np.pi * n)/M))
+        w.append(Alfa + (1-Alfa) * np.cos((2 * np.pi * n)/M))
     return w;
 
-def hammingWindow(M):
+def hanningWindow(M):
     w = []
     for n in range(-M, M):
         w.append(0.42 + 0.5*np.cos(2* np.pi * n/M) + 0.08 * np.cos(4 * np.pin /M ))
@@ -75,6 +90,11 @@ def hammingWindow(M):
 def takeFreqz(h, N):
     w, Hh = signal.freqz(h, 1)
     return w, Hh
+
+rectWindow = hammingWindow((0.54),13)
+
+h = multiplySignals(h, rectWindow);
+
 
 w, Hh = takeFreqz(h, 512);
 
@@ -87,7 +107,7 @@ M=13
 wc = np.pi/4
 n = np.arange(-M,M)
 ax=axs[0]
-ax.stem(n,h,basefmt='b-')
+ax.stem(n+M,h,basefmt='b-')
 ax.set_xlabel("n",fontsize=16)
 ax.set_ylabel("amplitude",fontsize=16)
 
