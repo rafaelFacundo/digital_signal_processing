@@ -175,4 +175,4 @@ ax.set_xlabel(r"",fontsize=22)
 ax.set_ylabel(r"",fontsize=18)
 """
 
-plt.show()
+#plt.show()
