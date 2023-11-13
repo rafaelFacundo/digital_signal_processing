@@ -88,6 +88,7 @@ def takeFilterAndWindow(initalN, finalN, M, filterName, window, Wc1, Wc2=None, b
     Hn_Idealfilter = [];
     Wn_window = [];
     Hn_FinalFilter = [];
+    Hn_shifted = []
     for n in range(initalN, finalN):
         #taking filter value in position n
         if filterName == "passa-faixa" or filterName == "rejeita-faixa":
@@ -104,8 +105,11 @@ def takeFilterAndWindow(initalN, finalN, M, filterName, window, Wc1, Wc2=None, b
         #savig the w(n) value of the window
         Wn_window.append(Wn_result)
         #saving the final value of the filter
-        Hn_FinalFilter.append(Hn_result * Wn_result);
-    return (Hn_FinalFilter, Hn_Idealfilter, Wn_window);
+        result = Hn_result * Wn_result
+        Hn_FinalFilter.append(result);
+        if result > 0:
+            Hn_shifted.append(result);
+    return (Hn_FinalFilter, Hn_Idealfilter, Wn_window, Hn_shifted);
 
 
 N_initial = -20;
@@ -115,12 +119,18 @@ M = 5
 window = "retangular"
 Wc1 = np.pi/4
 
-(Hn_FinalFilter, Hn_Idealfilter, Wn_window) = takeFilterAndWindow(N_initial, N_final, M, filter_name, window, Wc1);
+(Hn_FinalFilter, Hn_Idealfilter, Wn_window, Hn_shifted) = takeFilterAndWindow(N_initial, N_final, M, filter_name, window, Wc1);
 
 ara = np.arange(N_initial, N_final);
 
 
+
 plt.stem(ara, Hn_FinalFilter, use_line_collection=True);
+plt.grid()
+plt.show()
+
+ara2 = np.arange(0,M)
+plt.stem(ara2, Hn_shifted, use_line_collection=True);
 plt.grid()
 plt.show()
 
